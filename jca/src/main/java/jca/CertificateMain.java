@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.KeyPairGenerator;
+import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.X509Certificate;
@@ -83,5 +84,15 @@ public class CertificateMain {
             writer.writeObject(gen);
         }
 
+        // Tanúsítvány és privát kulcs mentése PKCS#12 keystore formátumban
+        var keyStore = KeyStore.getInstance("PKCS12");
+        keyStore.load(null, null); // Ha ez nincs, akkor nem inicializált, és exception-t dob
+        keyStore.setKeyEntry("training", pair.getPrivate(), "secret".toCharArray(), new X509Certificate[]{certificate});
+
+//        keyStore.setCertificateEntry("training-certificate", certificate);
+
+        try (var output = Files.newOutputStream(Path.of("training-keystore.p12"))) {
+            keyStore.store(output, "secret".toCharArray());
+        }
     }
 }
