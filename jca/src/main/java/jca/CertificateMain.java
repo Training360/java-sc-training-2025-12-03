@@ -94,5 +94,14 @@ public class CertificateMain {
         try (var output = Files.newOutputStream(Path.of("training-keystore.p12"))) {
             keyStore.store(output, "secret".toCharArray());
         }
+
+        // Egy olyan kulcstár generálása amiben csak a tanúsítvány van benne
+        keyStore = KeyStore.getInstance("PKCS12");
+        keyStore.load(null, null); // Ha ez nincs, akkor nem inicializált, és exception-t dob
+        keyStore.setCertificateEntry("training-certificate", certificate);
+
+        try (var output = Files.newOutputStream(Path.of("training-keystore-just-certificate.p12"))) {
+            keyStore.store(output, "secret".toCharArray());
+        }
     }
 }
