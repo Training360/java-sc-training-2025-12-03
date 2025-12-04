@@ -6,3 +6,10 @@ databaseChangeLog:
         - sqlFile:
             path: 01-create-employees.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 02-add-users
+      author: trainer
+      changes:
+        - sqlFile:
+            path: 02-add-users.sql
+            relativeToChangelogFile: true
