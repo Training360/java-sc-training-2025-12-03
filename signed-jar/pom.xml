@@ -14,4 +14,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>3.1.0</version>
+
+                <executions>
+                    <execution>
+                        <id>sign</id>
+                        <phase>package</phase> <!-- vagy verify -->
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <!-- SOSE commitoljunk jelszót, kulcsot verziókezelőbe!!!!! -->
+                        <configuration>
+                            <keystore>${project.basedir}/mykeystore.p12</keystore>
+                            <storepass>storepass</storepass>
+                            <alias>mykey</alias>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
