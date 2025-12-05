@@ -28,7 +28,7 @@ public class SecurityConfig {
                         registry.requestMatchers("/login")
                                 .permitAll()
 //                                .requestMatchers("/**") // EZ NAGYON ROSSZ, EZ EGY ELLENPÉLDA!
-                                .requestMatchers("/")
+                                .requestMatchers("/", "/employees")
                                 .hasRole("USER")
                                 .requestMatchers("/create-employee")
                                 .hasRole("ADMIN")
