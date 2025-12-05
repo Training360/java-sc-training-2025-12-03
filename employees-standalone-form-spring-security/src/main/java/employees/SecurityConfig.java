@@ -2,6 +2,7 @@ package employees;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,8 +23,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(2)
+    public SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/actuator/**")
+                .authorizeHttpRequests(registry ->
+                        registry.anyRequest()
+                                .hasRole("ADMIN")
+                )
+                .httpBasic(Customizer.withDefaults());
+        return http.build();
+    }
+
+    @Bean
+    @Order(1)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/login", "/", "/employees", "/create-employee", "/logout", "/default-ui.css")
                 .authorizeHttpRequests(registry ->
                         // Sorrend
                         // Specifikusabb szabályok kerüljenek felülre
