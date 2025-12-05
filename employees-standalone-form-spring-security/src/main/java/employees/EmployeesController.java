@@ -2,6 +2,8 @@ package employees;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.Policy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,8 +44,25 @@ public class EmployeesController {
 
     @PostMapping("/create-employee")
     public ModelAndView createEmployeePost(@ModelAttribute EmployeeModel command) {
-        employeesService.createEmployee(command);
-        return new ModelAndView("redirect:/");
+        var text = command.name();
+        var antySamy = new AntiSamy();
+
+        try (var file = AntiSamy.class.getResourceAsStream("/antisamy-tinymce.xml")) {
+            var policy = Policy.getInstance(file);
+            var result = antySamy.scan(text, policy);
+            var cleanedCommand = new EmployeeModel(
+                    command.id(),
+                    result.getCleanHTML()
+            );
+
+            employeesService.createEmployee(cleanedCommand);
+            return new ModelAndView("redirect:/");
+        }
+        catch (Exception e) {
+            throw new IllegalStateException("Can not clean", e);
+        }
+
+
     }
 
 }
