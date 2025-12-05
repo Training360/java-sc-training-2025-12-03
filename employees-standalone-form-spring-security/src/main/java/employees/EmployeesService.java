@@ -17,7 +17,7 @@ public class EmployeesService {
 
     private final EmployeesRepository repository;
 
-    @PostFilter("T(java.lang.Character).isUpperCase(filterObject.name.charAt(0))")
+//    @PostFilter("T(java.lang.Character).isUpperCase(filterObject.name.charAt(0))")
 //    @PostFilter("filterObject.name.contains(authentication.name)") // Példa arra, hogy a
     // felhasználónévre is lehet hivatkozni SpEL-ből
     public List<EmployeeModel> listEmployees() {
