@@ -1,6 +1,19 @@
 server:
   port: 8080
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: employees-frontend
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/EmployeesRealm
+
 management:
   endpoints:
     web:

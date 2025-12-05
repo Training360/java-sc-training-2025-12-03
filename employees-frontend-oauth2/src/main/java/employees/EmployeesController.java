@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,8 @@ public class EmployeesController {
     private EmployeesClient employeesClient;
 
     @GetMapping("/")
-    public ModelAndView listEmployees() {
+    public ModelAndView listEmployees(Principal principal) {
+        log.info("Principal: {}", principal);
         Map<String, Object> model = new HashMap<>();
         model.put("employees", employeesClient.listEmployees());
         model.put("command", Employee.empty());
