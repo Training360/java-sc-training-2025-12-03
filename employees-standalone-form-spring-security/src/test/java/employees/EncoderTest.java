@@ -14,9 +14,6 @@ class EncoderTest {
 
         var encoder = new BCryptPasswordEncoder();
         System.out.println(encoder.encode("user"));
-        System.out.println(encoder.encode("password"));
-
-        //$2a$10$wwVY9.Jev4hUgBc195g2wetbFHgPtrUtxsrE5ffZ.ZYTvOh4j.9F6
-        //$2a$10$13kw3IWbUlhOHEEv.zvZJemx1kqCv/zeM0DYDloEktdkbfO3DP3tm
+        System.out.println(encoder.encode("admin"));
     }
 }
