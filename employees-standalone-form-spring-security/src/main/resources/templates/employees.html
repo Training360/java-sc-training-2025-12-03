@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8"/>
     <title>Employees</title>
@@ -26,7 +27,9 @@
     </tbody>
 </table>
 
-<p><a href="/create-employee">Create employee</a></p>
+<div sec:authorize="hasRole('ADMIN')">
+    <p><a href="/create-employee">Create employee</a></p>
+</div>
 
 </body>
 </html>
