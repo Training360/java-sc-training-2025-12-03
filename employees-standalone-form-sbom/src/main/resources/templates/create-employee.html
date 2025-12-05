@@ -11,8 +11,10 @@
 <form th:action="@{/create-employee}" th:object="${command}" method="post">
         <label for="name-input">Name</label>
         <input th:field="*{name}" id="name-input" />
-    <button type="submit">Create employee</button>
+    <button type="submit" class="btn btn-primary">Create employee</button>
 </form>
+
+<p><a href="/">List employees</a></p>
 
 </body>
 </html>

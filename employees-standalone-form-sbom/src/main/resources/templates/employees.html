@@ -19,11 +19,14 @@
     <tr th:each="employee : ${employees}">
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.name}"></td>
+            <td>
+                <a th:href="@{/employees(id=${employee.id})}">View</a>
+            </td>
     </tr>
     </tbody>
 </table>
 
-<a href="/create-employee">Create employee</a>
+<p><a href="/create-employee">Create employee</a></p>
 
 </body>
 </html>
